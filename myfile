@@ -1,0 +1,123 @@
+# contacts = [
+#     {"name": "John", "phone": "123-456-7890"},
+#     {"name": "Sarah", "phone": "987-654-3210"}
+# ]
+
+# print(contacts[0])
+# print(contacts[0]["name"])
+# print(contacts[1]["phone"])
+
+
+# contacts = []
+
+# def add_contact():
+#     name = input("What is your name: ")
+#     phone = input("What's your phone number: ")
+#     new_contact = {"name": name, "phone": phone}
+#     contacts.append(new_contact)
+#     print(f"{name} added to contacts!")
+# while True:
+#     add_contact()
+#     print(contacts)
+#     again = input("Do you want to continue? (y/n): ")
+#     if again != "y":
+#         break
+
+import json
+
+def save_contacts():
+    with open("contacts.json","w") as file:
+        json.dump(contacts, file)
+
+def load_contacts():
+    try:
+        with open("contacts.json","r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return []
+
+contacts = load_contacts()
+
+def add_contact():
+    name = input("What is your name: ")
+    phone = input("What's your phone number: ")
+    new_contact = {"name": name, "phone": phone}
+    contacts.append(new_contact)
+    print(f"{name} added to contacts!")
+
+
+def view_contacts():
+    for contact in contacts:
+        print(f"Name: {contact['name']}, Phone: {contact['phone']}")
+def delete_contact():
+    name = input("Which contact do you want to delete? ")
+    for contact in contacts:
+        if contact["name"] == name:
+            contacts.remove(contact)
+            print(f"{name} deleted.")
+            return
+    print(f"No contact named {name} found.")
+while True:
+    print("\n1. Add Contact")
+    print("2. View Contacts")
+    print("3. Delete Contact")
+    print("4. Exit")
+    choice = input("Choose an option: ")
+    # print(f"You chose: {choice}")
+    if choice == "1":
+        add_contact()
+        save_contacts()
+    elif choice == "2":
+        view_contacts()
+    elif choice == "3":
+        delete_contact()
+        save_contacts()
+    elif choice == "4":
+        print("Goodbye!")
+        break
+    else:
+        print("Invalid choice, try again.")
+
+# contact_book.py
+
+# Contact Book
+
+A command-line Python program for managing contacts — add, view, and delete contacts, with everything automatically saved to a file so your data persists between sessions.
+
+## How to Run
+
+1. Make sure you have Python 3 installed.
+2. Clone this repository:
+```bash
+   git clone https://github.com/emmanuellauloko240/contact-book.git
+```
+3. Navigate into the project folder:
+```bash
+   cd contact-book
+```
+4. Run the program:
+```bash
+   python3 contact_book.py
+```
+
+## Features
+
+- Add new contacts with a name and phone number
+- View all saved contacts in a readable format
+- Delete a contact by name
+- Automatically saves contacts to a file (`contacts.json`)
+- Loads previously saved contacts when the program starts
+
+## What I Learned
+
+Building this project helped me understand:
+
+- Dictionaries, for storing structured data like name/phone pairs
+- Lists of dictionaries, for managing multiple records
+- Writing a menu-driven program using loops and `if`/`elif`/`else`
+- Searching for and removing items from a list
+- Saving and loading structured data using the `json` module
+- Keeping sensitive data out of GitHub using `.gitignore`
+
+There's still more to explore here — like organizing larger programs, and handling edge cases more gracefully — but this project gave me a much stronger grasp of how real, practical programs are structured.
+        contacts.json

@@ -23,9 +23,20 @@
 #     if again != "y":
 #         break
 
+import json
 
-contacts = []
+def save_contacts():
+    with open("contacts.json","w") as file:
+        json.dump(contacts, file)
 
+def load_contacts():
+    try:
+        with open("contacts.json","r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return []
+
+contacts = load_contacts()
 
 def add_contact():
     name = input("What is your name: ")
@@ -35,6 +46,9 @@ def add_contact():
     print(f"{name} added to contacts!")
 
 
+def view_contacts():
+    for contact in contacts:
+        print(f"Name: {contact['name']}, Phone: {contact['phone']}")
 
 while True:
     print("\n1. Add Contact")
@@ -44,8 +58,9 @@ while True:
     # print(f"You chose: {choice}")
     if choice == "1":
         add_contact()
+        save_contacts()
     elif choice == "2":
-        print(contacts)
+        view_contacts()
     elif choice == "3":
         print("Goodbye!")
         break

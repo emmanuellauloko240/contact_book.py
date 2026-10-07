@@ -49,11 +49,19 @@ def add_contact():
 def view_contacts():
     for contact in contacts:
         print(f"Name: {contact['name']}, Phone: {contact['phone']}")
-
+def delete_contact():
+    name = input("Which contact do you want to delete? ")
+    for contact in contacts:
+        if contact["name"] == name:
+            contacts.remove(contact)
+            print(f"{name} deleted.")
+            return
+    print(f"No contact named {name} found.")
 while True:
     print("\n1. Add Contact")
     print("2. View Contacts")
-    print("3. Exit")
+    print("3. Delete Contact")
+    print("4. Exit")
     choice = input("Choose an option: ")
     # print(f"You chose: {choice}")
     if choice == "1":
@@ -62,6 +70,9 @@ while True:
     elif choice == "2":
         view_contacts()
     elif choice == "3":
+        delete_contact()
+        save_contacts()
+    elif choice == "4":
         print("Goodbye!")
         break
     else:
